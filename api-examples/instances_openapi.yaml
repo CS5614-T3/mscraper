@@ -1,0 +1,157 @@
+
+openapi: "3.0.3"
+info:
+  title: "Mastodon Instances"
+  description: "REST API documentation generated from JSON examples"
+  version: "1.0.0"
+servers:
+  - url: "https://instances.social/api/1.0/instances/"
+    description: "Production server"
+paths:
+  /list:
+    get:
+      summary: "GET /list"
+      description: "GET operation for /list"
+      parameters:
+      responses:
+        200:
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MyAPI"
+        400:
+          description: "Bad request"
+        404:
+          description: "Not found"
+        500:
+          description: "Internal server error"
+components:
+  schemas:
+    MyAPI:
+      type: "object"
+      properties:
+        instances:
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              id:
+                type: "string"
+              name:
+                type: "string"
+              added_at:
+                type: "null"
+              updated_at:
+                type: "string"
+                format: "date-time"
+              checked_at:
+                type: "string"
+                format: "date-time"
+              uptime:
+                type: "integer"
+              up:
+                type: "boolean"
+              dead:
+                type: "boolean"
+              version:
+                type: "string"
+              ipv6:
+                type: "boolean"
+              https_score:
+                type: "integer"
+              https_rank:
+                type: "string"
+              obs_score:
+                type: "integer"
+              obs_rank:
+                type: "string"
+              users:
+                type: "string"
+              statuses:
+                type: "string"
+              connections:
+                type: "string"
+              open_registrations:
+                type: "boolean"
+              info:
+                type: "object"
+                properties:
+                  short_description:
+                    type: "string"
+                  full_description:
+                    type: "string"
+                  topic:
+                    type: "string"
+                  languages:
+                    type: "array"
+                    items:
+                      type: "string"
+                  other_languages_accepted:
+                    type: "boolean"
+                  federates_with:
+                    type: "null"
+                  prohibited_content:
+                    type: "array"
+                    items:
+                      type: "string"
+                  categories:
+                    type: "array"
+                    items:
+                      type: "object"
+                required:
+                  - short_description
+                  - full_description
+                  - topic
+                  - languages
+                  - other_languages_accepted
+                  - prohibited_content
+                  - categories
+              thumbnail:
+                type: "string"
+              thumbnail_proxy:
+                type: "string"
+              active_users:
+                type: "integer"
+              email:
+                type: "string"
+                format: "email"
+              admin:
+                type: "string"
+            required:
+              - id
+              - name
+              - updated_at
+              - checked_at
+              - uptime
+              - up
+              - dead
+              - version
+              - ipv6
+              - https_score
+              - https_rank
+              - obs_score
+              - obs_rank
+              - users
+              - statuses
+              - connections
+              - open_registrations
+              - info
+              - thumbnail
+              - thumbnail_proxy
+              - active_users
+              - email
+              - admin
+        pagination:
+          type: "object"
+          properties:
+            total:
+              type: "integer"
+            next_id:
+              type: "string"
+          required:
+            - total
+            - next_id
+      required:
+        - instances
+        - pagination
