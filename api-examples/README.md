@@ -11,6 +11,6 @@ Examples for accessing REST APIs, including:
 
 **Docs:** <https://instances.social/api/doc/>
 
-**Example request:** ./
+**Example request:** [instances.http]
 
-**Example response:** [./instances_example.json]
+**Example response:** [instances_example.json]
