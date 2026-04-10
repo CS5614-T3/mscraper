@@ -4,6 +4,7 @@ from dotenv import dotenv_values
 from supabase import create_client, Client
 
 from src.instances import InstancesAPI
+from trends import TrendsAPI
 
 
 def main():
@@ -17,6 +18,7 @@ def main():
     supabase: Client = create_client(url, key)
 
     instances = get_instances()["instances"]
+
     # Unpack the info object into the main object
     [instance.update(instance.pop("info", None)) for instance in instances]
 
@@ -26,6 +28,9 @@ def main():
     except Exception as exception:
         print(exception)
 
+    for instance in instances:
+        trendAPI = TrendsAPI(instance["name"])
+        trendAPI.insert_trends()
 
 def get_instances():
     config = dotenv_values(".env")
