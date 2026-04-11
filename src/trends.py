@@ -45,7 +45,7 @@ class TrendsAPI:
                   "trend_id": trend.id
                   } for history in trend.history
                  ]
-                )
+                ).execute()
 
         except Exception as exception:
             print(exception)
