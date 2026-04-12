@@ -1,10 +1,9 @@
-import json
-import os
+
 from dotenv import dotenv_values
-from supabase import create_client, Client
+from supabase import Client, create_client
 
 from src.instances import InstancesAPI
-from trends import TrendsAPI
+from src.trends import TrendsAPI
 
 
 def main():
@@ -22,13 +21,25 @@ def main():
     # Unpack the info object into the main object
     [instance.update(instance.pop("info", None)) for instance in instances]
 
-
+    # Load instances into instances_raw
     try:
         response = supabase.table("instances_raw").upsert(instances).execute()
     except Exception as exception:
         print(exception)
 
     for instance in instances:
+        # load instance data into snapshot table
+        try:
+            response = supabase.table("instances_snapshot_raw").insert({
+                "id": instance["id"],
+                "users": instance[ "users" ],
+                "statuses": instance["statuses"],
+                "connections": instance[ "connections"],
+                "active_users": instance["active_users"]
+                }).execute()
+        except Exception as exception:
+            print(exception)
+
         trendAPI = TrendsAPI(instance["name"])
         trendAPI.insert_trends()
 
