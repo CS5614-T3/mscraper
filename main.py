@@ -4,7 +4,7 @@ from dotenv import dotenv_values
 from supabase import create_client, Client
 
 from src.instances import InstancesAPI
-from trends import TrendsAPI
+from src.trends import TrendsAPI
 
 
 def main():

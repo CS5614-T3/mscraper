@@ -39,7 +39,7 @@ class TrendsAPI:
 
             for trend in trends:
                 response = self.supabase.table("trends_history_raw").upsert(
-                [{"day": history.day,
+                [{"day": history.day.isoformat(),
                   "uses": history.uses,
                   "accounts": history.accounts,
                   "trend_id": trend.id
