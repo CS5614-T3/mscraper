@@ -1,8 +1,8 @@
-
 from dotenv import dotenv_values
 from supabase import Client, create_client
 
 from src.instances import InstancesAPI
+from src.activity import ActivityAPI
 from src.trends import TrendsAPI
 
 
@@ -36,12 +36,17 @@ def main():
                 "statuses": instance["statuses"],
                 "connections": instance[ "connections"],
                 "active_users": instance["active_users"]
-                }).execute()
+               }).execute()
         except Exception as exception:
             print(exception)
 
+        # Add trends
         trendAPI = TrendsAPI(instance["name"])
         trendAPI.insert_trends()
+
+        # Add activity
+        activityAPI = ActivityAPI(instance["name"])
+        activityAPI.insert_activity()
 
 def get_instances():
     config = dotenv_values(".env")
