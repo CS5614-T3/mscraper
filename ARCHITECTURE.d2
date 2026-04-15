@@ -1,0 +1,28 @@
+Database: {icon: "https://icons.terrastruct.com/dev%2Fpostgresql.svg"}
+
+Database.instances_raw <- Scraper.instances
+Database.instances_snapshot_raw <- Scraper.instances
+Database.trends_raw <- Scraper.trends
+Database.trends_history_raw <- Scraper.trends
+Database.activity_raw <- Scraper.activity
+Database.locations_raw <- Scraper.locations
+
+Database.instances_raw -- Database.instances_snapshot_raw: {style: {stroke-dash: 3}}
+Database.instances_raw -- Database.trends_raw: {style: {stroke-dash: 3}}
+Database.instances_raw -- Database.activity_raw: {style: {stroke-dash: 3}}
+Database.instances_raw -- Database.locations_raw: {style: {stroke-dash: 3}}
+Database.trends_raw -- Database.trends_history_raw: {style: {stroke-dash: 3}}
+
+Scraper: {icon: "https://icons.terrastruct.com/dev%2Fpython.svg"}
+
+APIs: {
+  icon: "https://icons.terrastruct.com/infra%2F019-network.svg"
+}
+
+Scraper.instances <-> APIs."instances.social"
+APIs."Mastodon Servers": {
+  style.multiple: true
+}
+Scraper.trends <-> APIs."Mastodon Servers"
+Scraper.activity <-> APIs."Mastodon Servers"
+Scraper.locations <-> APIs.FediDB

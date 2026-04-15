@@ -2,10 +2,11 @@
 
 ## APIs
 
-MScraper uses two APIs:
+MScraper uses three APIs:
 
 1. Instances.social
 2. Mastodon API
+3. FediDB (Not yet implemented)
 
 ### Instances.Social
 
@@ -21,3 +22,29 @@ Mscraper queries these endpoints:
 
 - [Activity](https://docs.joinmastodon.org/methods/instance/#activity): Weekly statistics for the number of statuses, logins, and registratiosn
 - [Trends](https://docs.joinmastodon.org/methods/trends/#statuses): Popular hashtags for each instance
+
+### FediDB
+
+FediDB provides information not available through individual instances' APIs, specifically server location, if available.
+
+```mermaid
+classDiagram
+    instances_raw -- instances_snapshot_raw
+    instances_raw -- activity_raw
+    instances_raw  -- trends_raw
+    trends_raw  -- trends_history_raw
+    instances_raw: name
+    class instances_snapshot_raw{
+      name
+    }
+    class activity_raw{
+      base_url
+    }
+    class trends_raw{
+      id
+      base_url
+    }
+    class trends_history_raw{
+      trend_id
+    }
+```
