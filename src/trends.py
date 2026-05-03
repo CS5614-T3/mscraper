@@ -21,8 +21,12 @@ class TrendsAPI:
 
 
     def get_trends(self):
-        trends: NonPaginatableList[Tag] = self.mastodonAPI.trending_tags()
-        return trends
+        try:
+            trends: NonPaginatableList[Tag] = self.mastodonAPI.trending_tags()
+            return trends
+            
+        except Exception as exception:
+            print(exception)
 
     def insert_trends(self):
         trends = self.get_trends()

@@ -22,8 +22,13 @@ class ActivityAPI:
 
 
     def get_activity(self):
-        activity: NonPaginatableList[Activity] = self.mastodonAPI.instance_activity()
-        return activity
+        try:
+            activity: NonPaginatableList[Activity] = self.mastodonAPI.instance_activity()
+            return activity
+        
+        except Exception as exception:
+            print(exception)
+            return []
 
     def insert_activity(self):
         activities = self.get_activity()
